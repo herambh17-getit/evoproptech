@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# No crawl-delay — the site is static and cheap to serve.
+
+Sitemap: https://evoproptech.com/sitemap.xml

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<title>OG image source — EVO Proptech</title>
+<!--
+  Source for assets/og-image.png (1200x630), referenced by the og:image and
+  twitter:image tags in index.html. Regenerate after any brand change with:
+
+    chrome --headless --disable-gpu --screenshot=og-image.png \
+           --window-size=1200,630 --default-background-color=0 og-image.html
+
+  (On Windows, call chrome.exe by its full path. Any headless Chromium works.)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: Inter, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #FFFCFA;
+    color: #14100D;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  body::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(52% 62% at 18% 26%, rgba(212,82,26,.14), transparent 70%),
+                radial-gradient(42% 52% at 92% 4%, rgba(21,115,71,.09), transparent 70%);
+  }
+  .left { flex: 1.12; padding: 64px 24px 64px 70px; position: relative; z-index: 1; display: flex; flex-direction: column; }
+  .right { flex: .88; display: grid; place-items: center; position: relative; z-index: 1; }
+
+  .brand { display: flex; align-items: center; gap: 13px; font-weight: 700; font-size: 26px; letter-spacing: -.01em; }
+  .brand svg { width: 44px; height: 44px; border-radius: 12px; }
+
+  .eyebrow {
+    display: inline-block; margin-top: 46px;
+    font-size: 15px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: #9C380E; background: #FDF1EA; border: 1px solid #FAE1D3;
+    padding: 9px 17px; border-radius: 999px; align-self: flex-start;
+  }
+  h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 62px; font-weight: 700; line-height: 1.06; letter-spacing: -.02em;
+    margin-top: 26px;
+  }
+  h1 em { color: #D4521A; font-style: italic; }
+  .sub { margin-top: 20px; font-size: 23px; font-weight: 500; color: #3D3833; line-height: 1.4; }
+
+  .chips { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
+  .chip {
+    font-size: 16px; font-weight: 600; color: #3D3833;
+    background: #fff; border: 1px solid #EBE3DC;
+    padding: 11px 18px; border-radius: 999px;
+  }
+
+  .card {
+    width: 384px; background: #fff; border: 1px solid #EBE3DC; border-radius: 30px;
+    box-shadow: 0 12px 32px rgba(20,16,13,.09), 0 34px 80px rgba(20,16,13,.11);
+    padding: 34px 30px 30px; text-align: center;
+  }
+  .card__label { font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #6B635B; }
+  .gauge { margin: 12px auto 0; display: block; }
+  .num { font-family: "Playfair Display", Georgia, serif; font-size: 52px; font-weight: 700; fill: #14100D; }
+  .of  { font-size: 11px; fill: #6B635B; font-family: Inter, sans-serif; letter-spacing: .09em; font-weight: 600; }
+  .verdict {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 4px;
+    background: #E7F4EC; color: #157347; border: 1px solid rgba(21,115,71,.22);
+    font-size: 17px; font-weight: 700; padding: 11px 22px; border-radius: 999px;
+  }
+  .price { margin-top: 24px; padding-top: 20px; border-top: 1px solid #EBE3DC; display: flex; align-items: baseline; justify-content: center; gap: 11px; }
+  .price b { font-family: "Playfair Display", Georgia, serif; font-size: 38px; color: #D4521A; }
+  .price s { font-size: 20px; color: #9A9187; }
+  .price span { font-size: 15px; color: #6B635B; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="9" fill="#D4521A"/>
+        <path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+        <path d="M11.5 20.5h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      Evoproptech
+    </div>
+
+    <span class="eyebrow">Independent property due diligence</span>
+
+    <h1>Know what you're buying&nbsp;— <em>before</em> you commit.</h1>
+    <p class="sub">55+ checks on your shortlisted property, resolved into one score.</p>
+
+    <div class="chips">
+      <span class="chip">✓ 55+ checks</span>
+      <span class="chip">✓ 48–72hr delivery</span>
+      <span class="chip">✓ Zero commission</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="card">
+      <p class="card__label">Property Health Score</p>
+
+      <svg class="gauge" width="270" height="168" viewBox="0 0 200 128" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 112a80 80 0 0 1 160 0" fill="none" stroke="#EBE3DC" stroke-width="15" stroke-linecap="round"/>
+        <path d="M20 112a80 80 0 0 1 160 0" fill="none" stroke="#157347" stroke-width="15" stroke-linecap="round"
+              stroke-dasharray="251.3" stroke-dashoffset="55.29"/>
+        <text class="num" x="100" y="98" text-anchor="middle">78</text>
+        <text class="of" x="100" y="116" text-anchor="middle">OUT OF 100</text>
+      </svg>
+
+      <div class="verdict">✓ Safe to proceed</div>
+
+      <div class="price">
+        <b>₹8,499</b>
+        <span>all-in</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

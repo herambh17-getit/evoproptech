@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Dependencies (none today — defensive)
+node_modules/
+
+# Local secrets. If this repo is ever public, move LEAD_CONFIG.privyrUrl
+# into config.local.js and load it before main.js; config.example.js stays
+# committed as the template.
+config.local.js
+.env
+.env.*

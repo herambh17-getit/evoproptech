@@ -1,0 +1,7 @@
+Inter and Playfair Display are licensed under the SIL Open Font License,
+Version 1.1. The fonts in this directory are redistributed under that licence.
+
+Inter            — Copyright (c) The Inter Project Authors (https://github.com/rsms/inter)
+Playfair Display — Copyright (c) The Playfair Project Authors (https://github.com/clauseggers/Playfair-Display)
+
+Full licence text: https://openfontlicense.org
