@@ -4,3 +4,6 @@ _serve.js
 
 # Editor / session config
 .claude/
+
+# Brand source files and the logo generator — not part of the site.
+brand/

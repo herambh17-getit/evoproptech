@@ -37,8 +37,10 @@
 <link rel="preload" href="assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -50,7 +52,7 @@
       "@id": "https://evoproptech.com/#org",
       "name": "EVO Proptech Advisory",
       "url": "https://evoproptech.com/",
-      "logo": "https://evoproptech.com/assets/logo.svg",
+      "logo": { "@type": "ImageObject", "url": "https://evoproptech.com/assets/logo-512.png", "width": 512, "height": 512 },
       "description": "Independent, buyer-side property due diligence for Indian homebuyers.",
       "telephone": "+91-99871-17947",
       "email": "hello@evoproptech.com",
@@ -147,11 +149,7 @@
 <header class="header">
   <div class="wrap header__inner">
     <a class="brand" href="#top" aria-label="EVO Proptech home">
-      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="9" fill="#D4521A"/>
-        <path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-        <path d="M11.5 20.5h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-      </svg>
+      <img class="brand__mark" src="assets/logo.svg" width="32" height="32" alt="">
       <span>Evoproptech</span>
     </a>
 
@@ -464,7 +462,7 @@
           <div class="pages" aria-hidden="true">
             <!-- Illustrative layout of the report format, not real client data. -->
             <div class="page page-1">
-              <div class="page__brand"><i></i> Evoproptech</div>
+              <div class="page__brand"><img src="assets/logo.svg" width="11" height="11" alt=""> Evoproptech</div>
               <p class="page__title">Property Health Score</p>
               <div class="page__rule"></div>
               <p class="page__label">Overall</p>
@@ -479,7 +477,7 @@
             </div>
 
             <div class="page page-2">
-              <div class="page__brand"><i></i> Evoproptech</div>
+              <div class="page__brand"><img src="assets/logo.svg" width="11" height="11" alt=""> Evoproptech</div>
               <p class="page__title">Risk register</p>
               <div class="page__rule"></div>
               <div class="page__row"><span>Title chain</span><span class="page__flag flag-go">CLEAR</span></div>
@@ -494,7 +492,7 @@
             </div>
 
             <div class="page page-3">
-              <div class="page__brand"><i></i> Evoproptech</div>
+              <div class="page__brand"><img src="assets/logo.svg" width="11" height="11" alt=""> Evoproptech</div>
               <p class="page__title">Price benchmark</p>
               <div class="page__rule"></div>
               <p class="page__label">Quoted vs. comparable</p>
@@ -1075,11 +1073,7 @@
     <div class="footer__grid">
       <div>
         <a class="brand" href="#top">
-          <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-            <rect width="32" height="32" rx="9" fill="#D4521A"/>
-            <path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-            <path d="M11.5 20.5h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-          </svg>
+          <img class="brand__mark" src="assets/logo.svg" width="32" height="32" alt="">
           <span>Evoproptech</span>
         </a>
         <p style="margin-top:14px;max-width:42ch">Independent property advisory for Indian homebuyers. 55+ checks before you sign — flat fee, no commissions, no conflicts of interest.</p>

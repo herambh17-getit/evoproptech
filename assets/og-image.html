@@ -35,7 +35,7 @@
   .right { flex: .88; display: grid; place-items: center; position: relative; z-index: 1; }
 
   .brand { display: flex; align-items: center; gap: 13px; font-weight: 700; font-size: 26px; letter-spacing: -.01em; }
-  .brand svg { width: 44px; height: 44px; border-radius: 12px; }
+  .brand img { width: 44px; height: 44px; display: block; }
 
   .eyebrow {
     display: inline-block; margin-top: 46px;
@@ -81,11 +81,7 @@
 <body>
   <div class="left">
     <div class="brand">
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="9" fill="#D4521A"/>
-        <path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-        <path d="M11.5 20.5h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-      </svg>
+      <img src="logo.svg" width="44" height="44" alt="">
       Evoproptech
     </div>
 
