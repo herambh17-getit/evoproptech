@@ -1,0 +1,6 @@
+# Local dev server — not needed in production, and serving it publicly
+# would expose a file that has no business being on the live site.
+_serve.js
+
+# Editor / session config
+.claude/
