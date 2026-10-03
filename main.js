@@ -286,17 +286,26 @@
   var mobileCta = $('#mobile-cta');
   var heroCta   = $('.hero__cta');
   var finalCard = $('.final-card');
+  var leadForm  = $('#get-report');
 
   if (mobileCta && heroCta && 'IntersectionObserver' in window) {
-    var heroVisible = true, finalVisible = false;
+    var heroVisible = true, finalVisible = false, formVisible = false;
 
     function syncStickyCta() {
-      mobileCta.classList.toggle('is-visible', !heroVisible && !finalVisible);
+      // Never float a "Score my property" bar while the form it points to, the
+      // hero CTA, or the final form is already on screen.
+      mobileCta.classList.toggle('is-visible', !heroVisible && !finalVisible && !formVisible);
     }
 
     new IntersectionObserver(function (e) {
       heroVisible = e[0].isIntersecting; syncStickyCta();
     }, { threshold: 0 }).observe(heroCta);
+
+    if (leadForm) {
+      new IntersectionObserver(function (e) {
+        formVisible = e[0].isIntersecting; syncStickyCta();
+      }, { threshold: 0.2 }).observe(leadForm);
+    }
 
     if (finalCard) {
       new IntersectionObserver(function (e) {
@@ -434,6 +443,12 @@
     '5Cr+':    '₹5 crore and above'
   };
 
+  var STAGE_LABELS = {
+    'shortlisting':  'Shortlisting',
+    'token-paid':    'Paid a token',
+    'ready-to-sign': 'Ready to sign'
+  };
+
   var FORM_LABELS = {
     hero:      'Hero form (top of page)',
     final:     'Consultation form (bottom of page)',
@@ -471,14 +486,23 @@
     if (c.provider === 'privyr') {
       if (!c.privyrUrl) return null;
 
-      var notes = [
-        'Form: '   + (FORM_LABELS[data.form] || data.form || '—'),
-        'Budget: ' + (BUDGET_LABELS[data.budget] || data.budget || 'Not stated'),
-        'Location: ' + (data.city || 'Not stated'),
-        'Source: ' + sourceSummary(data),
-        'Landing page: ' + (data.landing_page || '/'),
-        'Submitted: ' + new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
-      ];
+      var price = BUDGET_LABELS[data.budget] || data.budget || '';
+      var stage = STAGE_LABELS[data.stage] || data.stage || '';
+
+      var notes = [];
+      // An enrichment is the SAME lead adding project details after submitting.
+      // Flag it clearly so the analyst reads it as a follow-up, not a new person.
+      if (data.enrichment) notes.push('FOLLOW-UP — this lead added project details after their first submit:');
+      notes.push('Form: ' + (FORM_LABELS[data.form] || data.form || '—'));
+      if (data.project) notes.push('Project: ' + data.project);
+      if (stage) notes.push('Stage: ' + stage);
+      if (price) notes.push('Property price: ' + price);
+      if (!data.enrichment) {
+        notes.push('Location: ' + (data.city || 'Not stated'));
+        notes.push('Source: ' + sourceSummary(data));
+        notes.push('Landing page: ' + (data.landing_page || '/'));
+      }
+      notes.push('Submitted: ' + new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
       if (data.utm_campaign) notes.push('Campaign: ' + data.utm_campaign);
       if (data.gclid) notes.push('gclid: ' + data.gclid);
 
@@ -487,7 +511,9 @@
         phone: normalisePhone(data.phone),
         email: data.email || '',
         // Privyr surfaces unknown keys as custom fields on the lead.
-        budget: BUDGET_LABELS[data.budget] || data.budget || '',
+        price: price,
+        project: data.project || '',
+        stage: stage,
         location: data.city || '',
         source: sourceSummary(data),
         form: FORM_LABELS[data.form] || data.form || '',
@@ -673,9 +699,15 @@
 
       var budgets = $$('input[name="budget"]', form);
       if (budgets.length && !budgets.some(function (b) { return b.checked; })) {
+        // Read the group's own label so the wording matches whatever the page
+        // shows ("Property price range" here, "Budget range" on the old form).
+        var grp = form.querySelector('[role="radiogroup"][aria-labelledby]');
+        var lbl = grp && document.getElementById(grp.getAttribute('aria-labelledby'));
+        var name = lbl ? lbl.textContent.replace('*', '').trim() : 'an option';
         var budgetSlot = form.querySelector('[data-err-for$="-budget"]');
-        if (budgetSlot) budgetSlot.textContent = 'Please pick a budget range.';
-        problems.push({ id: budgets[0].id, label: 'Budget range', message: 'Please pick a budget range.' });
+        var msg = 'Please pick a ' + name.toLowerCase() + '.';
+        if (budgetSlot) budgetSlot.textContent = msg;
+        problems.push({ id: budgets[0].id, label: name, message: msg });
       }
 
       if (problems.length) {
@@ -706,6 +738,9 @@
           if (success && success.classList.contains('form-success')) {
             success.setAttribute('tabindex', '-1');
             success.focus({ preventScroll: true });
+            // The lead is already captured. If a Step 2 panel follows, it only
+            // enriches it — optional project details — never gates anything.
+            if (success.classList.contains('form-step2')) initStep2(data, success);
           }
         })
         .catch(function (err) {
@@ -723,6 +758,77 @@
         });
     });
   });
+
+  /* Step 2 of the hero form. The lead is already in the CRM by the time this
+     runs, so everything here is enrichment: an optional project name and stage
+     that make the analyst's first reply sharper. A visitor who ignores it has
+     still converted. "Send project details" posts a follow-up tied to the same
+     phone; "Chat on WhatsApp now" opens a pre-filled chat. */
+  function initStep2(data, panel) {
+    if (panel.dataset.step2Ready) return;
+    panel.dataset.step2Ready = '1';
+
+    var firstName = (data.name || '').trim().split(/\s+/)[0] || '';
+    var nameSpan = panel.querySelector('[data-firstname]');
+    if (nameSpan && firstName) nameSpan.textContent = ', ' + firstName;
+
+    var projectEl = panel.querySelector('#h-project');
+    var waBtn = panel.querySelector('[data-step2-wa]');
+
+    function buildWa() {
+      var lines = ['Hi BuySafe team, I just submitted an enquiry on the website.'];
+      if (data.name) lines.push('Name: ' + data.name);
+      var proj = projectEl && projectEl.value.trim();
+      if (proj) lines.push('Project: ' + proj);
+      return 'https://wa.me/' + LEAD_CONFIG.whatsapp + '?text=' + encodeURIComponent(lines.join('\n'));
+    }
+    if (waBtn) {
+      waBtn.href = buildWa();
+      if (projectEl) projectEl.addEventListener('input', function () { waBtn.href = buildWa(); });
+      waBtn.addEventListener('click', function () { track('lead_whatsapp_click', { form: data.form, where: 'step2' }); });
+    }
+
+    track('lead_step2_view', { form: data.form });
+
+    var sendBtn = panel.querySelector('[data-step2-send]');
+    var enrichWrap = panel.querySelector('[data-step2-enrich]');
+    if (!sendBtn) return;
+
+    sendBtn.addEventListener('click', function () {
+      var proj = projectEl ? projectEl.value.trim() : '';
+      var stageEl = panel.querySelector('input[name="stage"]:checked');
+      var stage = stageEl ? stageEl.value : '';
+      if (!proj && !stage) {           // nothing added — nudge, don't send an empty follow-up
+        if (projectEl) { projectEl.focus(); projectEl.placeholder = 'Add a project name or pick a stage above'; }
+        return;
+      }
+      var original = sendBtn.innerHTML;
+      sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
+
+      var enrich = Object.assign({}, data, { project: proj, stage: stage, enrichment: true });
+      track('lead_step2_submit', { form: data.form, hasProject: !!proj, stage: stage || null });
+
+      sendLead(enrich)
+        .then(function () {
+          track('lead_enriched', { form: data.form });
+          if (enrichWrap) {
+            enrichWrap.classList.add('is-done');
+            enrichWrap.innerHTML = '<p>Thanks — we’ve added the project to your enquiry.</p>';
+          }
+        })
+        .catch(function () {
+          // The enquiry itself is already saved, so this is never a dead end.
+          sendBtn.disabled = false; sendBtn.innerHTML = original;
+          if (enrichWrap && !enrichWrap.querySelector('.step2-note')) {
+            var note = document.createElement('p');
+            note.className = 'step2-note small muted';
+            note.style.marginTop = '8px';
+            note.textContent = 'Couldn’t attach that just now — no problem, we already have your enquiry and will ask on WhatsApp.';
+            enrichWrap.appendChild(note);
+          }
+        });
+    });
+  }
 
   /* No endpoint yet — so WhatsApp is the endpoint. The visitor has already
      done the work of filling the form; this carries every field across into a
