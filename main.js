@@ -772,7 +772,7 @@
     var nameSpan = panel.querySelector('[data-firstname]');
     if (nameSpan && firstName) nameSpan.textContent = ', ' + firstName;
 
-    var projectEl = panel.querySelector('#h-project');
+    var projectEl = panel.querySelector('input[name="project"]');
     var waBtn = panel.querySelector('[data-step2-wa]');
 
     function buildWa() {
@@ -796,7 +796,7 @@
 
     sendBtn.addEventListener('click', function () {
       var proj = projectEl ? projectEl.value.trim() : '';
-      var stageEl = panel.querySelector('input[name="stage"]:checked');
+      var stageEl = panel.querySelector('.segmented--3 input:checked');
       var stage = stageEl ? stageEl.value : '';
       if (!proj && !stage) {           // nothing added — nudge, don't send an empty follow-up
         if (projectEl) { projectEl.focus(); projectEl.placeholder = 'Add a project name or pick a stage above'; }
