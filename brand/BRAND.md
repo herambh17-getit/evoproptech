@@ -24,7 +24,7 @@ Spelling rules
 - **One line:** Independent property due diligence for Indian homebuyers — one score, one clear call, before you commit.
 - **Tagline:** Know before you commit.
 - **Three proofs, each backed by something on the site:**
-  1. *Independent* — flat fee, no commission from any builder or broker (written into the terms).
+  1. *Transparent pricing* — you pay ₹8,499 for the report; if you buy through us the developer pays a referral fee, disclosed upfront and never changing your price (written into the terms).
   2. *Sourced* — every finding names the record it came from.
   3. *Clear* — one score and a GO / CAUTION / STOP, not a folder of documents.
 - **What we are not** (stated in the terms): a broker, a law firm, a valuer, or a SEBI-registered adviser.
