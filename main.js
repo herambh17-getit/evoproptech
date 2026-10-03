@@ -54,7 +54,7 @@
   var ANALYTICS = {
     ga4:        'G-D6L4NRTFT9', // Google Analytics 4
     googleAds:  '',    // 'AW-XXXXXXXXX'   Google Ads (for conversion import)
-    metaPixel:  '',    // '1234567890'     Meta / Facebook Pixel
+    metaPixel:  '1548349143712281', // Meta Pixel / dataset ID
     conversionLabel: '' // 'AW-XXXXXXXXX/AbC-D_efGh'  fires on lead_success
   };
 
@@ -113,10 +113,16 @@
       }
     }
 
+    /* Meta gets a deliberately short list. Its ad delivery learns from the
+       events it receives, so a wrong one is worse than none: this form was
+       previously reported as InitiateCheckout, a shopping-cart event, which
+       would have trained delivery towards people starting a checkout that
+       does not exist. Lead fires only on a confirmed submission. Nothing
+       carrying budget or contact details is sent. */
     if (typeof window.fbq === 'function') {
       if (event === 'lead_success') window.fbq('track', 'Lead');
-      else if (event === 'lead_submit') window.fbq('track', 'InitiateCheckout');
-      else window.fbq('trackCustom', event, params || {});
+      else if (event === 'lead_handoff_whatsapp') window.fbq('track', 'Contact');
+      else if (event === 'cta_click') window.fbq('trackCustom', 'CtaClick', { cta: (params && params.cta) || '' });
     }
 
     if (window.EVO_DEBUG) console.info('[track]', payload);
