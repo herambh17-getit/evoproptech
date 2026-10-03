@@ -52,7 +52,7 @@
      calls track(), so an ID is the only thing standing between you and data.
      =========================================================================== */
   var ANALYTICS = {
-    ga4:        '',    // 'G-XXXXXXXXXX'   Google Analytics 4
+    ga4:        'G-D6L4NRTFT9', // Google Analytics 4
     googleAds:  '',    // 'AW-XXXXXXXXX'   Google Ads (for conversion import)
     metaPixel:  '',    // '1234567890'     Meta / Facebook Pixel
     conversionLabel: '' // 'AW-XXXXXXXXX/AbC-D_efGh'  fires on lead_success
