@@ -186,8 +186,17 @@ h3 { font-size: clamp(1.1rem, 2.2vw, 1.35rem); line-height: 1.25; }
   border-bottom: 1px solid var(--line);
 }
 .header__inner { height: var(--header-h); display: flex; align-items: center; gap: 20px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
-.brand__mark { width: 32px; height: 32px; flex: none; display: block; } /* logo carries its own corner radius */
+/* Brand lockup: mark, then "BuySafe" over "by Evoproptech".
+   BuySafe is the name people say; Evoproptech is the endorser beneath it. The
+   wordmark is set in the headline serif so it reads as part of the page's
+   voice rather than a logo pasted on. Minimum size: the by-line never goes
+   below 11.5px, and the lockup is never shown without the mark. */
+.brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); flex: none; }
+.brand__text { display: flex; flex-direction: column; justify-content: center; white-space: nowrap; }
+.brand__name { font-family: var(--serif); font-weight: 700; font-size: 22px; line-height: 1; letter-spacing: -.02em; }
+/* #5A524B, not --ink-3: the header is 12% transparent, and over a dark section --ink-3 fell to 4.39:1. */
+.brand__by { font-size: 12px; font-weight: 500; line-height: 1.1; letter-spacing: .01em; color: #5A524B; margin-top: 4px; }
+.brand__mark { width: 38px; height: 38px; flex: none; display: block; } /* logo carries its own corner radius */
 .nav { display: none; margin-left: auto; gap: 4px; }
 .nav a { padding: 9px 13px; border-radius: 999px; font-size: 14.5px; font-weight: 500; color: var(--ink-2); }
 .nav a:hover { background: var(--surface-2); color: var(--ink); }
@@ -209,11 +218,20 @@ h3 { font-size: clamp(1.1rem, 2.2vw, 1.35rem); line-height: 1.25; }
 /* Narrow phones: the brand + CTA must fit on one line without clipping. */
 @media (max-width: 480px) {
   .header__inner { gap: 10px; }
-  .brand { font-size: 15px; }
-  .brand__mark { width: 28px; height: 28px; }
+  .brand { gap: 9px; }
+  .brand__mark { width: 34px; height: 34px; }
+  .brand__name { font-size: 20px; }
+  .brand__by { font-size: 12px; margin-top: 3px; }
   .header .btn { padding: 11px 15px; font-size: 13.5px; }
   .header .btn .btn__arrow { display: none; }
   .announce { font-size: 12.5px; padding-inline: 16px 38px; }
+}
+/* Below 420px the lockup (~135px), the CTA (~150px) and the menu button cannot
+   share a row, and squeezing the lockup made 'by Evoproptech' wrap onto two
+   lines. The lockup wins: the action stays one tap away in the hero, the sticky
+   bottom bar that appears on scroll, and the menu. */
+@media (max-width: 420px) {
+  .header__actions > .btn { display: none; }
 }
 
 /* ---------- Mobile navigation ----------
@@ -667,6 +685,7 @@ form.is-sent + .form-success { display: block; }
 .footer li + li { margin-top: 9px; }
 .footer a:hover { color: #FFB68F; }
 .footer .brand { color: #fff; }
+.footer .brand__by { color: #A79C93; } /* 7.3:1 on the footer ground */
 .contact-line { display: flex; align-items: center; gap: 10px; margin-top: 9px; }
 .contact-line svg { color: #6E645C; flex: none; }
 /* #6E645C on this ground is 3.4:1 — disclaimers are legally load-bearing text
@@ -724,6 +743,27 @@ form.is-sent + .form-success { display: block; }
    whose whole job is to be trusted and read, content is always visible.
    .reveal is kept as a hook only; it must never affect opacity. */
 .reveal { opacity: 1; }
+
+/* ---------- Very small phones (320-400px) ----------
+   Found by testing below 375px for the first time. Two things were wider than
+   the screen: a long button label that refused to wrap, and the sticky bar's
+   price text plus button. Both pushed the whole page wider, which in turn
+   displaced fixed elements such as the WhatsApp button. */
+.mobile-cta__note { display: block; }
+/* Wide tables scroll inside their own box instead of widening the page. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 22px 0; border-radius: var(--r-sm); }
+.table-scroll:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.table-scroll .rate-table { margin: 0; min-width: 460px; }
+.mobile-cta .btn { white-space: nowrap; }
+@media (max-width: 400px) {
+  .btn--lg, .btn--block { white-space: normal; text-align: center; line-height: 1.25; }
+  .btn--lg { padding-inline: 22px; }
+  .stage > * { min-width: 0; } /* a grid item may not be wider than its column */
+}
+@media (max-width: 360px) {
+  .mobile-cta__note { display: none; }
+  .mobile-cta .btn { padding: 13px 16px; }
+}
 
 /* ==========================================================================
    COMPONENT GUARD — keep this last.

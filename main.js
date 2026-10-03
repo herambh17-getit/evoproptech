@@ -1,5 +1,5 @@
 /* =============================================================================
-   EVO Proptech — interaction layer
+   BuySafe by Evoproptech — interaction layer
    No dependencies. Progressive enhancement: everything degrades to plain HTML.
    ============================================================================= */
 (function () {
@@ -511,7 +511,7 @@
           body: JSON.stringify(Object.assign({
             access_key: c.web3formsKey,
             subject: c.subject,
-            from_name: 'EVO Proptech website'
+            from_name: 'BuySafe website'
           }, data))
         }
       };
@@ -600,7 +600,7 @@
   /* A route that survives a failed submit: the visitor's details, pre-filled
      into WhatsApp, so a broken endpoint costs us a click rather than a lead. */
   function whatsappFallback(data) {
-    var lines = ['Hi, I would like a Property Health Score.'];
+    var lines = ['Hi BuySafe team, I would like a Property Health Score.'];
     if (data.name)   lines.push('Name: ' + data.name);
     if (data.phone)  lines.push('Phone: ' + data.phone);
     if (data.email)  lines.push('Email: ' + data.email);
