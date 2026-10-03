@@ -8,21 +8,45 @@
       ]
     },
     {
-      "source": "/assets/og-image.png",
+      "source": "/assets/logo.svg",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
-      "source": "/assets/apple-touch-icon.png",
+      "source": "/assets/logo-192.png",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/assets/logo-512.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
       "source": "/assets/favicon.svg",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/assets/apple-touch-icon.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/assets/og-image.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
